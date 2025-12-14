@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>파일 상세보기</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container detail">
+
+    <h1>📄 {{ file[0] }}</h1>
+
+    <p><strong>파일 유형:</strong> {{ file[1] }}</p>
+
+    <div class="tag-box">
+        <strong>태그:</strong>
+        {% for t in file[2].split(',') %}
+            <span class="tag">{{ t }}</span>
+        {% endfor %}
+    </div>
+
+    <h3>요약 내용</h3>
+    <pre style="white-space: pre-wrap; word-break: break-word;">{{ file[3] }}</pre>
+
+    {% set lower = file[0].lower() %}
+    {% if lower.endswith(".jpg") or lower.endswith(".jpeg") or lower.endswith(".png") %}
+    <div class="preview">
+        <h3>이미지 미리보기</h3>
+        <img src="{{ url_for('uploaded_file', filename=file[0]) }}" alt="preview">
+    </div>
+    {% endif %}
+
+    <a class="btn back" href="/" style="margin-top:15px;">← 목록으로 돌아가기</a>
+
+</div>
+
+</body>
+</html>
